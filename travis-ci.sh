@@ -83,7 +83,7 @@ cat pullreq.diff
 
 if grep "^+++ b/dockerfiles/$TAG/Dockerfile" pullreq.diff >/dev/null; then
     build_image
-    # test_image
+    test_image
     deploy_image
 else
     green_echo "[ OK ] $TAG: Dockerfile is not changed."
