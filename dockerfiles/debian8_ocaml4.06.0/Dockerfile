@@ -52,7 +52,6 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       'cairo2>=0.5' \
       archimedes \
       jupyter \
-      num \
       'core>=v0.9.0' \
       'async>=v0.9.0' \
       lacaml \
