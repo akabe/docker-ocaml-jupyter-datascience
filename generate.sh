@@ -214,6 +214,7 @@ let () =
 ;;
 
 #use "topfind" ;;
+Topfind.log := ignore ;; (* prevent noisy logs *)
 EOF
 
 # entrypoint.sh
