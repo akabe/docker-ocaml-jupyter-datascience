@@ -8,35 +8,61 @@ function green_echo() {
     echo -e "\033[32m$@\033[0m"
 }
 
-image=$1
-error_code=0
+function yellow_echo() {
+    echo -e "\033[33m$@\033[0m"
+}
 
-for cmd in convert ffmpeg ; do
-	path=$(docker run --rm $image which $cmd)
+dir=$(dirname $0)
+exit_code=0
+failed_tests=''
+
+##
+## Test CUI commands
+##
+for cmd in convert ffmpeg ssh ; do
+	path=$(type -p $cmd)
 	if [[ "$path" == '' ]]; then
 		red_echo "[Failed] Command $cmd is not found."
-		error_code=1
+		failed_tests+="$cmd "
+		exit_code=1
     else
 		green_echo "[Passed] $cmd is found: $path"
 	fi
 done
 
-packages=$(find tests -name 'test_*.ml' | sed 's/^[^_]*_//; s/\.ml$//')
+##
+## Test opam packages on Jupyter
+##
+kernel_name="ocaml-jupyter-$(opam config var switch)"
 
-for pkg in $packages ; do
-	if docker run --rm $image ocamlfind query $pkg; then
-		file="tests/test_$pkg.ml"
-		stdout=$(cat $file | docker run -i --rm --link mysql:mysql --link postgres:postgres $image ocaml -init /home/opam/.ocamlinit)
-		if echo "$stdout" | grep -i 'error\|failure\|exception\|undefined\|cannot' >/dev/null; then
-			red_echo "[Failed] OPAM package $pkg"
-			error_code=1
-		else
+for nb_path in $(find "$dir" -name '*.ipynb'); do
+    pkg=$(basename "$nb_path" | sed 's/\.ipynb$//')
+	pkg_path=$(ocamlfind query "$pkg")
+    if [[ "$pkg_path" != '' ]]; then
+        yellow_echo "Testing package $pkg: $pkg_path"
+
+        nbg_path="/tmp/$pkg.ipynb"
+
+        sed "s/__OCAML_KERNEL__/$kernel_name/" "$nb_path" > "$nbg_path"
+
+        if jupyter nbconvert --to notebook --execute "$nbg_path"; then
 			green_echo "[Passed] OPAM package $pkg"
+		else
+			red_echo "[Failed] OPAM package $pkg"
+			exit_code=1
+			failed_tests+="$pkg "
 		fi
-		echo "$stdout"
+
+		rm -f "$nbg_path"
 	else
 		green_echo "[Skipped] OPAM package $pkg is not found."
 	fi
 done
 
-exit $error_code
+if [[ "$exit_code" -eq 0 ]]; then
+	green_echo 'All tests are passed.'
+else
+	red_echo "Some tests are failed: $failed_tests"
+fi
+
+exit $exit_code

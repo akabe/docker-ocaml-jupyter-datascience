@@ -49,7 +49,6 @@ RUN sudo yum install -y epel-release && \
       'cairo2>=0.5' \
       archimedes \
       jupyter \
-      num \
       'core>=v0.9.0' \
       'async>=v0.9.0' \
       lacaml \

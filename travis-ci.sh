@@ -52,7 +52,7 @@ function build_image() {
 function test_image() {
     yellow_echo "[Test] $TAG"
 
-    ./tests/run_test.sh akabe/ocaml-jupyter-datascience:$TAG
+    ./tests/run_test_on_docker.sh akabe/ocaml-jupyter-datascience:$TAG
 }
 
 function deploy_image() {
