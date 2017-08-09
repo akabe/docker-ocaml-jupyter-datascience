@@ -62,9 +62,7 @@ The default images are built on Debian 8:
 
 ### Standard libraries
 
-The OCaml standard library is too small in practical use.
-The following packages provide popular data structures, a lot of frequently-used functions such as string operations,
-complex iteration on collections, etc.
+The OCaml standard library is too small in practical use. The following packages provide popular data structures, a lot of frequently-used functions such as string operations, various iteration on collections, etc.
 
 - **[Jane Street Core](https://janestreet.github.io/)** ([GitHub](https://github.com/janestreet/core), [API](https://ocaml.janestreet.com/ocaml-core/v0.9/doc/core/Core/)) &mdash; A huge extended standard library developed by Jane Street Capital. The library is actively maintained and reliable due to industrial use of Jane Street. Its interface is designed differently from the OCaml standard library.
 - **[Batteries Included](http://batteries.forge.ocamlcore.org/)** ([GitHub](https://github.com/ocaml-batteries-team/batteries-included), [API](http://ocaml-batteries-team.github.io/batteries-included/hdoc2/)) &mdash; A famous extended standard library compatible with the OCaml standard library. It is smaller than Jane Street Core, but commonly-used functions are implemented.
@@ -73,12 +71,13 @@ complex iteration on collections, etc.
 
 - **[Lacaml](http://mmottl.github.io/lacaml/)** ([GitHub](https://github.com/mmottl/lacaml), [API](http://mmottl.github.io/lacaml/API.docdir/)) &mdash; A binding to [BLAS](http://www.netlib.org/blas/) (Basic Linear Algebra Subprograms) and [LAPACK](http://www.netlib.org/lapack/) (Linear Algebra PACKage), traditional linear algebra libraries written in Fortran. This library supplies basic operations on vectors and matrices (e.g., addition, dot product, multiplication), LU, QR, SVD, least-square fitting, etc.
 - **[SLAP](http://akabe.github.io/slap/)** ([GitHub](https://github.com/akabe/slap), [API](http://akabe.github.io/slap/api/)) &mdash; A high-level wrapper of Lacaml with type-based static size checks for vectors and matrices.
-    - [examples/slap_two_layer_neural_network.ipynb](examples/slap_two_layer_neural_network.ipynb)
+    - [notebooks/slap_two_layer_neural_network.ipynb](notebooks/slap_two_layer_neural_network.ipynb)
 - **[GSL](http://mmottl.github.io/gsl-ocaml)** ([GitHub](https://github.com/mmottl/gsl-ocaml), [API](http://mmottl.github.io/gsl-ocaml/api/)) &mdash; A binding to [GNU Scientific Library (GSL)](http://www.gnu.org/software/gsl/), a rich numerical analysis library containing interface to BLAS. This library contains eigenproblem solvers, least square fitting, pseudo-random number generators (such as Mersenne Twister), FFT (fast Fourier transform), Monte-Carlo simulation, etc.
-    - [examples/gaussian_random_walk.ipynb](examples/gaussian_random_walk.ipynb)
-    - [examples/random_dataset_generation.ipynb](examples/random_dataset_generation.ipynb)
+    - [notebooks/gaussian_random_walk.ipynb](notebooks/gaussian_random_walk.ipynb)
+    - [notebooks/random_dataset_generation.ipynb](notebooks/random_dataset_generation.ipynb)
 - **FFTW3** ([GitHub](https://github.com/Chris00/fftw-ocaml)) &mdash; A binding to [FFTW3](http://fftw.org/), a major fast Fourier transform library.
-    - [examples/fftw3_example.ipynb](examples/fftw3_example.ipynb)
+    - [notebooks/fftw3_example.ipynb](notebooks/fftw3_example.ipynb)
+    - [notebooks/formant_estimation_by_AR.ipynb](notebooks/formant_estimation_by_AR.ipynb)
 - **libsvm** ([BitBucket](https://bitbucket.org/ogu/libsvm-ocaml/), [API](https://ogu.bitbucket.io/libsvm-ocaml/api/)) &mdash; Support vector machine (SVM) is a powerful model in machine learning. This is a binding to [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm/), a library for SVMs.
 - **TensorFlow** ([GitHub](https://github.com/LaurentMazare/tensorflow-ocaml)) &mdash; A binding to [TensorFlow](https://www.tensorflow.org/), a popular open-source neural network library developed by Google.
 - **[L-BFGS](https://github.com/Chris00/L-BFGS-ocaml)** ([API](http://lbfgs.forge.ocamlcore.org/API.docdir/Lbfgs.html)) &mdash; A binding to [L-BFGS-B](http://users.iems.northwestern.edu/~nocedal/lbfgsb.html), a quasi-Newton library for bound-constrained optimization.
@@ -111,9 +110,9 @@ complex iteration on collections, etc.
 
 ## Examples
 
-```
-git clone git@github.com:akabe/docker-ocaml-jupyter-datascience.git
-docker run -it -p 8888:8888 -v $PWD/docker-ocaml-jupyter-datascience/examples:/notebooks akabe/ocaml-jupyter-datascience
+```console
+$ git clone https://github.com/akabe/docker-ocaml-jupyter-datascience.git
+$ docker run -it -p 8888:8888 -v $PWD/docker-ocaml-jupyter-datascience/notebooks:/notebooks akabe/ocaml-jupyter-datascience
 ```
 
 ## Contribution
