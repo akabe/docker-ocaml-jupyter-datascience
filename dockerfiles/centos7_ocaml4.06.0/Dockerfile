@@ -48,6 +48,7 @@ RUN sudo yum install -y epel-release && \
       'merlin>=3.0.0' \
       'cairo2>=0.5' \
       archimedes \
+      'stdint<0.4.0' \
       jupyter \
       'core>=v0.9.0' \
       'async>=v0.9.0' \
