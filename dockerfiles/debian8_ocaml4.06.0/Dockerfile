@@ -108,6 +108,7 @@ RUN mkdir -p /home/opam/.jupyter
 
 COPY entrypoint.sh /
 COPY .ocamlinit    /home/opam/.ocamlinit
+COPY notebook.json /home/opam/.jupyter/nbconfig/notebook.json
 
 VOLUME /notebooks
 WORKDIR /notebooks

@@ -195,6 +195,7 @@ RUN mkdir -p /home/opam/.jupyter
 
 COPY entrypoint.sh /
 COPY .ocamlinit    /home/opam/.ocamlinit
+COPY notebook.json /home/opam/.jupyter/nbconfig/notebook.json
 
 VOLUME /notebooks
 WORKDIR /notebooks
@@ -214,6 +215,19 @@ let () =
 
 #use "topfind" ;;
 Topfind.log := ignore ;; (* prevent noisy logs *)
+EOF
+
+## notebook.json
+cat <<'EOF' > dockerfiles/$TAG/notebook.json
+{
+  "Cell": {
+    "cm_config": {
+      "indentUnit": 2,
+      "lineNumbers": true,
+      "autoCloseBrackets": true
+    }
+  }
+}
 EOF
 
 # entrypoint.sh
