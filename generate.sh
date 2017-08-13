@@ -1,15 +1,23 @@
 #!/bin/bash -eu
 
-function jupyter_scripts() {
+function install_jupyter() {
+	cat <<'EOF'
+    sudo pip3 install --upgrade pip && \
+    sudo pip3 install --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
+    jupyter contrib nbextension install --user && \
+    mkdir -p /home/opam/.jupyter
+EOF
+}
+
+function install_opam_packages() {
     cat <<'EOF'
     eval $(opam config env) && \
     \
-    sudo pip3 install --upgrade pip && \
-    pip3 install --user --no-cache-dir jupyter && \
     opam update && \
     opam upgrade -y && \
-    (opam install -y batteries lwt_ssl tls || :) && \
+    (opam install -y batteries 'lwt>=3.0.0' lwt_ssl tls cohttp-async cohttp-lwt-unix || :) && \
     opam install -y \
+      'cppo=1.5.0' \
       'merlin>=3.0.0' \
       'cairo2>=0.5' \
       archimedes \
@@ -30,7 +38,6 @@ function jupyter_scripts() {
       postgresql \
       sqlite3 \
       'oasis>=0.4.0' && \
-    (opam install -y cohttp-async cohttp-lwt-unix || :) && \
     \
     : install libsvm && \
     curl -L https://bitbucket.org/ogu/libsvm-ocaml/downloads/libsvm-ocaml-0.9.3.tar.gz \
@@ -84,12 +91,13 @@ RUN sudo yum install -y epel-release && \\
       which \\
       gcc \\
       m4 \\
+      time \\
       zeromq-devel \\
+      python34-devel \\
+      python34-pip \\
       libffi-devel \\
       gmp-devel \\
       cairo-devel \\
-      python34-devel \\
-      python34-pip \\
       gfortran \\
       openssh-clients \\
       blas-devel \\
@@ -107,9 +115,10 @@ RUN sudo yum install -y epel-release && \\
     && \\
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \\
     \\
-$(jupyter_scripts) && \\
+$(install_jupyter) && \\
+$(install_opam_packages) && \\
     \\
-    sudo yum remove -y rsync gfortran && \\
+    sudo yum remove -y rsync gfortran python34-devel && \\
     sudo yum clean all
 EOF
 }
@@ -130,6 +139,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       rsync \\
       gcc \\
       m4 \\
+      time \\
       gfortran \\
       pkg-config \\
       ssh \\
@@ -149,16 +159,16 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libmariadb-dev \\
       libpq-dev \\
       libsqlite3-dev \\
-      libcurl4-openssl-dev \\
       libgmp-dev \\
       imagemagick \\
       ffmpeg \\
     && \\
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \\
     \\
-$(jupyter_scripts) && \\
+$(install_jupyter) && \\
+$(install_opam_packages) && \\
     \\
-    sudo apt-get purge -y rsync gfortran && \\
+    sudo apt-get purge -y rsync gfortran python3-dev && \\
     sudo apt-get autoremove -y && \\
     sudo apt-get autoclean
 EOF
@@ -192,8 +202,6 @@ fi
 
 cat <<'EOF' >> dockerfiles/$TAG/Dockerfile
 
-RUN mkdir -p /home/opam/.jupyter
-
 COPY entrypoint.sh /
 COPY .ocamlinit    /home/opam/.ocamlinit
 COPY notebook.json /home/opam/.jupyter/nbconfig/notebook.json
@@ -222,6 +230,10 @@ EOF
 cat <<'EOF' > dockerfiles/$TAG/notebook.json
 {
   "Cell": {
+    "load_extensions": {
+      "contrib_nbextensions_help_item/main": true,
+      "nbextensions_configurator/config_menu/main": true
+    },
     "cm_config": {
       "indentUnit": 2,
       "lineNumbers": true,

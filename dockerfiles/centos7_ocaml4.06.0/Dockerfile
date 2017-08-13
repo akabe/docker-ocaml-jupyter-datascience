@@ -14,12 +14,13 @@ RUN sudo yum install -y epel-release && \
       which \
       gcc \
       m4 \
+      time \
       zeromq-devel \
+      python34-devel \
+      python34-pip \
       libffi-devel \
       gmp-devel \
       cairo-devel \
-      python34-devel \
-      python34-pip \
       gfortran \
       openssh-clients \
       blas-devel \
@@ -37,14 +38,17 @@ RUN sudo yum install -y epel-release && \
     && \
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \
     \
+    sudo pip3 install --upgrade pip && \
+    sudo pip3 install --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
+    jupyter contrib nbextension install --user && \
+    mkdir -p /home/opam/.jupyter && \
     eval $(opam config env) && \
     \
-    sudo pip3 install --upgrade pip && \
-    pip3 install --user --no-cache-dir jupyter && \
     opam update && \
     opam upgrade -y && \
-    (opam install -y batteries lwt_ssl tls || :) && \
+    (opam install -y batteries 'lwt>=3.0.0' lwt_ssl tls cohttp-async cohttp-lwt-unix || :) && \
     opam install -y \
+      'cppo=1.5.0' \
       'merlin>=3.0.0' \
       'cairo2>=0.5' \
       archimedes \
@@ -65,7 +69,6 @@ RUN sudo yum install -y epel-release && \
       postgresql \
       sqlite3 \
       'oasis>=0.4.0' && \
-    (opam install -y cohttp-async cohttp-lwt-unix || :) && \
     \
     : install libsvm && \
     curl -L https://bitbucket.org/ogu/libsvm-ocaml/downloads/libsvm-ocaml-0.9.3.tar.gz \
@@ -98,10 +101,8 @@ RUN sudo yum install -y epel-release && \
            $HOME/.opam/$OCAML_VERSION/man \
            $HOME/.opam/$OCAML_VERSION/build && \
     \
-    sudo yum remove -y rsync gfortran && \
+    sudo yum remove -y rsync gfortran python34-devel && \
     sudo yum clean all
-
-RUN mkdir -p /home/opam/.jupyter
 
 COPY entrypoint.sh /
 COPY .ocamlinit    /home/opam/.ocamlinit
