@@ -3,7 +3,7 @@
 function install_jupyter() {
 	cat <<'EOF'
     sudo pip3 install --upgrade pip && \
-    sudo pip3 install --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
+    pip3 install --user --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
     jupyter contrib nbextension install --user && \
     mkdir -p /home/opam/.jupyter
 EOF
