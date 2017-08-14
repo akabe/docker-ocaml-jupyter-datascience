@@ -88,7 +88,9 @@ The OCaml standard library is too small in practical use. The following packages
 ### Visualization
 
 - **[Archimedes](http://archimedes.forge.ocamlcore.org/)** ([API](http://archimedes.forge.ocamlcore.org/API/Archimedes.html)) &mdash; A 2D plot library like matplotlib in Python. You can embed PNG images in Jupyter notebooks.
+    - [notebooks/introduction.ipynb](notebooks/introduction.ipynb)
 - **Cairo2** ([GitHub](https://github.com/Chris00/ocaml-cairo), [Tutorial](http://cairo.forge.ocamlcore.org/tutorial/index.html), [API](http://cairo.forge.ocamlcore.org/tutorial/Cairo.html)) &mdash; A binding to [Cairo](https://cairographics.org/), a 2D vector graphics library. This library is useful as a backend of Archimedes.
+    - [notebooks/simple_image_filtering.ipynb](notebooks/simple_image_filtering.ipynb)
 
 ### Data sources
 
@@ -97,6 +99,8 @@ The OCaml standard library is too small in practical use. The following packages
 - **[Postgresql](http://mmottl.github.io/postgresql-ocaml/)** ([GitHub](https://github.com/mmottl/postgresql-ocaml), [API](http://mmottl.github.io/postgresql-ocaml/api/)) &mdash; [PostgreSQL](https://www.postgresql.org/) is a popular relational database with many aggregate and window functions useful for data analysis.
 - **[SQLite3](http://mmottl.github.io/sqlite3-ocaml/)** ([GitHub](https://github.com/mmottl/sqlite3-ocaml), [API](http://mmottl.github.io/sqlite3-ocaml/API.docdir/)) &mdash; A client library for SQLite3, a easy-to-use lightweight database.
 - **Cohttp** ([GitHub](https://github.com/mirage/ocaml-cohttp), [API](http://mirage.github.io/ocaml-cohttp/)) &mdash; A very lightweight HTTP(s) client/server library using Async and Lwt. This library is useful to access to API servers or Web scraping.
+    - [notebooks/cohttp_lwt_DuckDuckGoAPI.ipynb](notebooks/cohttp_lwt_DuckDuckGoAPI.ipynb)
+    - [notebooks/cohttp_async_DuckDuckGoAPI.ipynb](notebooks/cohttp_async_DuckDuckGoAPI.ipynb)
 
 ### Concurrent programming
 
