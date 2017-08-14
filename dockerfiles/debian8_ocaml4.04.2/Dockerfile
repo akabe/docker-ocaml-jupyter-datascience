@@ -11,6 +11,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
     sudo apt-get update && \
     sudo apt-get upgrade -y && \
     sudo apt-get install -y \
+      aspcud \
       rsync \
       gcc \
       m4 \
@@ -24,6 +25,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libffi-dev \
       libgmp-dev \
       libcairo2-dev \
+      libplplot-dev plplot12-driver-cairo \
       libffi-dev \
       libblas-dev \
       liblapack-dev \
@@ -39,6 +41,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       ffmpeg \
     && \
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \
+    sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \
     \
     sudo pip3 install --upgrade pip && \
     pip3 install --user --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
@@ -48,16 +51,18 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
     \
     opam update && \
     opam upgrade -y && \
-    (opam install -y batteries 'lwt>=3.0.0' lwt_ssl tls cohttp-async cohttp-lwt-unix || :) && \
     opam install -y \
-      'cppo=1.5.0' \
-      'merlin>=3.0.0' \
-      'cairo2>=0.5' \
-      archimedes \
-      'stdint<0.4.0' \
-      jupyter \
+      batteries \
       'core>=v0.9.0' \
       'async>=v0.9.0' \
+      'lwt>=3.0.0' \
+      lwt_ssl \
+      'cstruct>=3.1.1' 'ppx_cstruct>=3.1.1' 'tls>=0.8.0' \
+      cohttp-async \
+      cohttp-lwt-unix \
+      cohttp-top \
+      'cairo2>=0.5' archimedes \
+      'merlin>=3.0.0' 'cppo=1.5.0' 'stdint<0.4.0' 'jupyter=0.1.0' \
       lacaml \
       slap \
       lbfgs \
@@ -66,11 +71,11 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       gsl \
       gpr \
       fftw3 \
+      'dolog>=3.0' 'eigen>=0.0.3' 'oasis>=0.4.10' 'owl>=0.2.6' \
       mysql \
       'mariadb>=0.8.1' \
       postgresql \
-      sqlite3 \
-      'oasis>=0.4.0' && \
+      sqlite3 && \
     \
     : install libsvm && \
     curl -L https://bitbucket.org/ogu/libsvm-ocaml/downloads/libsvm-ocaml-0.9.3.tar.gz \
@@ -103,7 +108,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
            $HOME/.opam/$OCAML_VERSION/man \
            $HOME/.opam/$OCAML_VERSION/build && \
     \
-    sudo apt-get purge -y rsync gfortran python3-dev && \
+    sudo apt-get purge -y aspcud rsync gfortran python3-dev && \
     sudo apt-get autoremove -y && \
     sudo apt-get autoclean
 
