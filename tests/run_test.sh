@@ -38,10 +38,12 @@ packages=(
 	lacaml
 	slap
 	gsl
+	owl
 	lbfgs
 	libsvm
 	ocephes
 	tensorflow
+	plplot
 	mysql
 	mariadb
 	postgresql
