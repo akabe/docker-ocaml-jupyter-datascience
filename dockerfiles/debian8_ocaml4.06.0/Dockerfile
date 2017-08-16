@@ -7,20 +7,26 @@ ENV LIBRARY_PATH       /usr/lib:$LIBRARY_PATH
 
 ADD ocaml-jupyter-datascience-extra.list /etc/apt/sources.list.d/ocaml-jupyter-datascience-extra.list
 
+RUN sudo apt-get install -y python3-dev python3-pip && \
+    sudo pip3 install --upgrade pip && \
+    pip3 install --user --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
+    jupyter contrib nbextension install --user && \
+    mkdir -p /home/opam/.jupyter && \
+    sudo apt-get purge -y python3-dev && \
+    sudo apt-get autoremove -y && \
+    sudo apt-get autoclean
+
 RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db && \
     sudo apt-get update && \
     sudo apt-get upgrade -y && \
     sudo apt-get install -y \
-      aspcud \
+      m4 \
       rsync \
       gcc \
-      m4 \
-      time \
       gfortran \
+      aspcud \
       pkg-config \
       ssh \
-      python3-dev \
-      python3-pip \
       libzmq3-dev \
       libffi-dev \
       libgmp-dev \
@@ -43,10 +49,6 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \
     \
-    sudo pip3 install --upgrade pip && \
-    pip3 install --user --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
-    jupyter contrib nbextension install --user && \
-    mkdir -p /home/opam/.jupyter && \
     eval $(opam config env) && \
     \
     opam update && \
@@ -108,7 +110,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
            $HOME/.opam/$OCAML_VERSION/man \
            $HOME/.opam/$OCAML_VERSION/build && \
     \
-    sudo apt-get purge -y aspcud rsync gfortran python3-dev && \
+    sudo apt-get purge -y m4 rsync gcc gfortran aspcud pkg-config && \
     sudo apt-get autoremove -y && \
     sudo apt-get autoclean
 

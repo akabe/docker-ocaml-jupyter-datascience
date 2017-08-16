@@ -8,22 +8,28 @@ ENV LIBRARY_PATH       /usr/lib:$LIBRARY_PATH
 ADD MariaDB.repo /etc/yum.repos.d/MariaDB.repo
 
 RUN sudo yum install -y epel-release && \
+    sudo yum install -y python34-devel python34-pip && \
+    sudo pip3 install --upgrade pip && \
+    pip3 install --user --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
+    jupyter contrib nbextension install --user && \
+    mkdir -p /home/opam/.jupyter && \
+    sudo yum remove -y python34-devel && \
+    sudo yum clean all
+
+RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-solver-proxy/8f162de1fe89b2e243d89961f376c80fde6de76d/aspcud.docker' && \
+    sudo chmod 755 /usr/bin/aspcud && \
     sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm && \
     sudo yum install -y --enablerepo=epel,nux-dextop \
-      rsync \
-      aspcud \
       which \
+      m4 \
+      rsync \
       gcc \
       gcc-c++ \
-      m4 \
       zeromq-devel \
-      python34-devel \
-      python34-pip \
       libffi-devel \
       gmp-devel \
       cairo-devel \
       plplot-devel \
-      gfortran \
       openssh-clients \
       blas-devel \
       lapack-devel \
@@ -40,10 +46,6 @@ RUN sudo yum install -y epel-release && \
     && \
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \
     \
-    sudo pip3 install --upgrade pip && \
-    pip3 install --user --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
-    jupyter contrib nbextension install --user && \
-    mkdir -p /home/opam/.jupyter && \
     eval $(opam config env) && \
     \
     opam update && \
@@ -105,8 +107,9 @@ RUN sudo yum install -y epel-release && \
            $HOME/.opam/$OCAML_VERSION/man \
            $HOME/.opam/$OCAML_VERSION/build && \
     \
-    sudo yum remove -y aspcud rsync gfortran python34-devel && \
-    sudo yum clean all
+    sudo yum remove -y which m4 rsync gcc gcc-c++ gcc-gfortran && \
+    sudo yum clean all && \
+    sudo rm -f /usr/bin/aspcud
 
 COPY entrypoint.sh /
 COPY .ocamlinit    /home/opam/.ocamlinit
