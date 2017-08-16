@@ -76,6 +76,7 @@ The OCaml standard library is too small in practical use. The following packages
     - [notebooks/gaussian_random_walk.ipynb](notebooks/gaussian_random_walk.ipynb)
     - [notebooks/random_dataset_generation.ipynb](notebooks/random_dataset_generation.ipynb)
 - **Owl** ([GitHub](https://github.com/ryanrhymes/owl)) &mdash; a general-purpose numerical library: dense and sparse matrix, linear algebra, regressions, maths and stats functions.
+    - [notebooks/owl.ipynb](notebooks/owl.ipynb)
 - **FFTW3** ([GitHub](https://github.com/Chris00/fftw-ocaml)) &mdash; A binding to [FFTW3](http://fftw.org/), a major fast Fourier transform library.
     - [notebooks/fftw3_example.ipynb](notebooks/fftw3_example.ipynb)
     - [notebooks/formant_estimation_by_AR.ipynb](notebooks/formant_estimation_by_AR.ipynb)
@@ -93,6 +94,7 @@ The OCaml standard library is too small in practical use. The following packages
 - **Cairo2** ([GitHub](https://github.com/Chris00/ocaml-cairo), [Tutorial](http://cairo.forge.ocamlcore.org/tutorial/index.html), [API](http://cairo.forge.ocamlcore.org/tutorial/Cairo.html)) &mdash; A binding to [Cairo](https://cairographics.org/), a 2D vector graphics library. This library is useful as a backend of Archimedes.
     - [notebooks/simple_image_filtering.ipynb](notebooks/simple_image_filtering.ipynb)
 - **PLplot** ([GitHub](https://github.com/hcarty/ocaml-plplot)) &mdash; a binding to [PLplot](http://plplot.sourceforge.net/), a practical library for creating scientific charts.
+    - [notebooks/plplot.ipynb](notebooks/plplot.ipynb)
 
 ### Data sources
 
