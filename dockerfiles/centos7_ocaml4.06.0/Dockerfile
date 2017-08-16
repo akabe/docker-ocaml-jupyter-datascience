@@ -11,16 +11,18 @@ RUN sudo yum install -y epel-release && \
     sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm && \
     sudo yum install -y --enablerepo=epel,nux-dextop \
       rsync \
+      aspcud \
       which \
       gcc \
+      gcc-c++ \
       m4 \
-      time \
       zeromq-devel \
       python34-devel \
       python34-pip \
       libffi-devel \
       gmp-devel \
       cairo-devel \
+      plplot-devel \
       gfortran \
       openssh-clients \
       blas-devel \
@@ -46,16 +48,18 @@ RUN sudo yum install -y epel-release && \
     \
     opam update && \
     opam upgrade -y && \
-    (opam install -y batteries 'lwt>=3.0.0' lwt_ssl tls cohttp-async cohttp-lwt-unix || :) && \
     opam install -y \
-      'cppo=1.5.0' \
-      'merlin>=3.0.0' \
-      'cairo2>=0.5' \
-      archimedes \
-      'stdint<0.4.0' \
-      jupyter \
+      batteries \
       'core>=v0.9.0' \
       'async>=v0.9.0' \
+      'lwt>=3.0.0' \
+      lwt_ssl \
+      'cstruct>=3.1.1' 'ppx_cstruct>=3.1.1' 'tls>=0.8.0' \
+      cohttp-async \
+      cohttp-lwt-unix \
+      cohttp-top \
+      'cairo2>=0.5' archimedes \
+      'merlin>=3.0.0' 'cppo=1.5.0' 'stdint<0.4.0' 'jupyter=0.1.0' \
       lacaml \
       slap \
       lbfgs \
@@ -64,11 +68,11 @@ RUN sudo yum install -y epel-release && \
       gsl \
       gpr \
       fftw3 \
+      'dolog>=3.0' 'eigen>=0.0.3' 'oasis>=0.4.10' 'owl>=0.2.6' \
       mysql \
       'mariadb>=0.8.1' \
       postgresql \
-      sqlite3 \
-      'oasis>=0.4.0' && \
+      sqlite3 && \
     \
     : install libsvm && \
     curl -L https://bitbucket.org/ogu/libsvm-ocaml/downloads/libsvm-ocaml-0.9.3.tar.gz \
@@ -101,7 +105,7 @@ RUN sudo yum install -y epel-release && \
            $HOME/.opam/$OCAML_VERSION/man \
            $HOME/.opam/$OCAML_VERSION/build && \
     \
-    sudo yum remove -y rsync gfortran python34-devel && \
+    sudo yum remove -y aspcud rsync gfortran python34-devel && \
     sudo yum clean all
 
 COPY entrypoint.sh /

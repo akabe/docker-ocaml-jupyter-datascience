@@ -20,43 +20,51 @@ failed_tests=''
 ## Test CUI commands
 ##
 for cmd in convert ffmpeg ssh ; do
-	path=$(type -p $cmd)
-	if [[ "$path" == '' ]]; then
+	if type $cmd >/dev/null 2>&1; then
+		green_echo "[Passed] $cmd is found: $(type -p $cmd)"
+    else
 		red_echo "[Failed] Command $cmd is not found."
 		failed_tests+="$cmd "
 		exit_code=1
-    else
-		green_echo "[Passed] $cmd is found: $path"
 	fi
 done
 
 ##
 ## Test opam packages on Jupyter
 ##
-kernel_name="ocaml-jupyter-$(opam config var switch)"
+sudo chown opam:opam -R $PWD
 
-for nb_path in $(find "$dir" -name '*.ipynb'); do
-    pkg=$(basename "$nb_path" | sed 's/\.ipynb$//')
-	pkg_path=$(ocamlfind query "$pkg")
-    if [[ "$pkg_path" != '' ]]; then
-        yellow_echo "Testing package $pkg: $pkg_path"
+packages=(
+	lacaml
+	slap
+	gsl
+	owl
+	lbfgs
+	libsvm
+	ocephes
+	tensorflow
+	plplot
+	mysql
+	mariadb
+	postgresql
+	sqlite3
+	cohttp-lwt-unix
+	cohttp-async
+)
+for pkg in ${packages[@]}; do
+	if ocamlfind query $pkg >/dev/null 2>&1; then
+		yellow_echo "Testing package $pkg: $(ocamlfind query $pkg)"
 
-        nbg_path="/tmp/$pkg.ipynb"
-
-        sed "s/__OCAML_KERNEL__/$kernel_name/" "$nb_path" > "$nbg_path"
-
-        if jupyter nbconvert --to notebook --execute "$nbg_path"; then
+		if ocaml tests/nbtest.ml "tests/$pkg.ml"; then
 			green_echo "[Passed] OPAM package $pkg"
 		else
 			red_echo "[Failed] OPAM package $pkg"
-			exit_code=1
 			failed_tests+="$pkg "
+			exit_code=1
 		fi
-
-		rm -f "$nbg_path"
 	else
 		green_echo "[Skipped] OPAM package $pkg is not found."
-	fi
+ 	fi
 done
 
 if [[ "$exit_code" -eq 0 ]]; then
