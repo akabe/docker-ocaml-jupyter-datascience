@@ -111,12 +111,13 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
     sudo yum clean all && \
     sudo rm -f /usr/bin/aspcud
 
-COPY entrypoint.sh /
-COPY .ocamlinit    /home/opam/.ocamlinit
-COPY notebook.json /home/opam/.jupyter/nbconfig/notebook.json
-
 VOLUME /notebooks
+VOLUME /home/opam/.jupyter
 WORKDIR /notebooks
+
+ADD entrypoint.sh /
+ADD .ocamlinit    /home/opam/.ocamlinit
+ADD notebook.json /home/opam/.jupyter/nbconfig/notebook.json
 
 EXPOSE 8888
 

@@ -114,12 +114,13 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
     sudo apt-get autoremove -y && \
     sudo apt-get autoclean
 
-COPY entrypoint.sh /
-COPY .ocamlinit    /home/opam/.ocamlinit
-COPY notebook.json /home/opam/.jupyter/nbconfig/notebook.json
-
 VOLUME /notebooks
+VOLUME /home/opam/.jupyter
 WORKDIR /notebooks
+
+ADD entrypoint.sh /
+ADD .ocamlinit    /home/opam/.ocamlinit
+ADD notebook.json /home/opam/.jupyter/nbconfig/notebook.json
 
 EXPOSE 8888
 

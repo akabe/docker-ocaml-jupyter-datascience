@@ -214,12 +214,13 @@ fi
 
 cat <<'EOF' >> dockerfiles/$TAG/Dockerfile
 
-COPY entrypoint.sh /
-COPY .ocamlinit    /home/opam/.ocamlinit
-COPY notebook.json /home/opam/.jupyter/nbconfig/notebook.json
-
 VOLUME /notebooks
+VOLUME /home/opam/.jupyter
 WORKDIR /notebooks
+
+ADD entrypoint.sh /
+ADD .ocamlinit    /home/opam/.ocamlinit
+ADD notebook.json /home/opam/.jupyter/nbconfig/notebook.json
 
 EXPOSE 8888
 
@@ -227,39 +228,6 @@ ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "jupyter", "notebook", "--no-browser", "--ip=*" ]
 EOF
 
-## .ocamlinit
-cat <<'EOF' > dockerfiles/$TAG/.ocamlinit
-let () =
-  try Topdirs.dir_directory (Sys.getenv "OCAML_TOPLEVEL_PATH")
-  with Not_found -> ()
-;;
-
-#use "topfind" ;;
-Topfind.log := ignore ;; (* prevent noisy logs *)
-EOF
-
-## notebook.json
-cat <<'EOF' > dockerfiles/$TAG/notebook.json
-{
-  "Cell": {
-    "load_extensions": {
-      "contrib_nbextensions_help_item/main": true,
-      "nbextensions_configurator/config_menu/main": true
-    },
-    "cm_config": {
-      "indentUnit": 2,
-      "lineNumbers": true,
-      "autoCloseBrackets": true
-    }
-  }
-}
-EOF
-
-# entrypoint.sh
-cat <<'EOF' > dockerfiles/$TAG/entrypoint.sh
-#!/bin/bash
-sudo chown -hR opam:opam /notebooks
-opam config exec -- "$@"
-EOF
-
-chmod +x dockerfiles/$TAG/entrypoint.sh
+cp .ocamlinit    dockerfiles/$TAG/
+cp notebook.json dockerfiles/$TAG/
+cp entrypoint.sh dockerfiles/$TAG/
