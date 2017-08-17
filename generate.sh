@@ -218,9 +218,9 @@ VOLUME /notebooks
 VOLUME /home/opam/.jupyter
 WORKDIR /notebooks
 
-ADD entrypoint.sh /
-ADD .ocamlinit    /home/opam/.ocamlinit
-ADD notebook.json /home/opam/.jupyter/nbconfig/notebook.json
+COPY entrypoint.sh /
+COPY .ocamlinit    /home/opam/.ocamlinit
+COPY .jupyter      /home/opam/.jupyter
 
 EXPOSE 8888
 
@@ -228,6 +228,6 @@ ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "jupyter", "notebook", "--no-browser", "--ip=*" ]
 EOF
 
-cp .ocamlinit    dockerfiles/$TAG/
-cp notebook.json dockerfiles/$TAG/
-cp entrypoint.sh dockerfiles/$TAG/
+cp    entrypoint.sh dockerfiles/$TAG
+cp    .ocamlinit    dockerfiles/$TAG
+cp -r .jupyter      dockerfiles/$TAG

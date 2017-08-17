@@ -115,9 +115,9 @@ VOLUME /notebooks
 VOLUME /home/opam/.jupyter
 WORKDIR /notebooks
 
-ADD entrypoint.sh /
-ADD .ocamlinit    /home/opam/.ocamlinit
-ADD notebook.json /home/opam/.jupyter/nbconfig/notebook.json
+COPY entrypoint.sh /
+COPY .ocamlinit    /home/opam/.ocamlinit
+COPY .jupyter      /home/opam/.jupyter
 
 EXPOSE 8888
 
