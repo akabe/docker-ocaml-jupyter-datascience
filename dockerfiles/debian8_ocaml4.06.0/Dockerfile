@@ -120,6 +120,7 @@ WORKDIR /notebooks
 
 COPY entrypoint.sh /
 COPY .ocamlinit    /home/opam/.ocamlinit
+COPY .merlin       /home/opam/.merlin
 COPY .jupyter      /home/opam/.jupyter
 
 EXPOSE 8888

@@ -1,0 +1,44 @@
+# Jupyter-related packages
+PKG jupyter.notebook
+
+# extended standard libraries
+PKG core
+PKG batteries
+
+# numerical computation
+PKG lacaml
+PKG slap
+PKG gsl
+PKG owl
+PKG fftw3
+PKG libsvm
+PKG tensorflow
+PKG lbfgs
+PKG ocephes
+PKG oml
+PKG gpr
+
+# visualization
+PKG archimedes
+PKG cairo2
+PKG plplot
+
+# data source
+PKG mysql
+PKG mariadb
+PKG postgresql
+PKG sqlite3
+PKG cohttp-lwt-unix
+PKG cohttp-async
+
+# concurrent programming
+PKG lwt
+PKG lwt.unix
+PKG lwt.log
+PKG lwt.omp
+PKG lwt.ppx
+PKG lwt.preemptive
+PKG lwt.unix
+PKG lwt_ssl
+PKG tls
+PKG async
