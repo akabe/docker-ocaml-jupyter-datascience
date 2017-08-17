@@ -87,22 +87,25 @@ EOF
 ADD MariaDB.repo /etc/yum.repos.d/MariaDB.repo
 
 RUN sudo yum install -y epel-release && \\
+    sudo yum install -y python34-devel python34-pip && \\
+$(install_jupyter) && \\
+    sudo yum remove -y python34-devel && \\
+    sudo yum clean all
+
+RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-solver-proxy/8f162de1fe89b2e243d89961f376c80fde6de76d/aspcud.docker' && \\
+    sudo chmod 755 /usr/bin/aspcud && \\
     sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm && \\
     sudo yum install -y --enablerepo=epel,nux-dextop \\
-      rsync \\
-      aspcud \\
       which \\
+      m4 \\
+      rsync \\
       gcc \\
       gcc-c++ \\
-      m4 \\
       zeromq-devel \\
-      python34-devel \\
-      python34-pip \\
       libffi-devel \\
       gmp-devel \\
       cairo-devel \\
       plplot-devel \\
-      gfortran \\
       openssh-clients \\
       blas-devel \\
       lapack-devel \\
@@ -119,11 +122,11 @@ RUN sudo yum install -y epel-release && \\
     && \\
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \\
     \\
-$(install_jupyter) && \\
 $(install_opam_packages) && \\
     \\
-    sudo yum remove -y aspcud rsync gfortran python34-devel && \\
-    sudo yum clean all
+    sudo yum remove -y which m4 rsync gcc gcc-c++ gcc-gfortran && \\
+    sudo yum clean all && \\
+    sudo rm -f /usr/bin/aspcud
 EOF
 }
 
@@ -136,20 +139,23 @@ EOF
     cat <<EOF
 ADD ocaml-jupyter-datascience-extra.list /etc/apt/sources.list.d/ocaml-jupyter-datascience-extra.list
 
+RUN sudo apt-get install -y python3-dev python3-pip && \\
+$(install_jupyter) && \\
+    sudo apt-get purge -y python3-dev && \\
+    sudo apt-get autoremove -y && \\
+    sudo apt-get autoclean
+
 RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db && \\
     sudo apt-get update && \\
     sudo apt-get upgrade -y && \\
     sudo apt-get install -y \\
-      aspcud \\
+      m4 \\
       rsync \\
       gcc \\
-      m4 \\
-      time \\
       gfortran \\
+      aspcud \\
       pkg-config \\
       ssh \\
-      python3-dev \\
-      python3-pip \\
       libzmq3-dev \\
       libffi-dev \\
       libgmp-dev \\
@@ -172,10 +178,9 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \\
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \\
     \\
-$(install_jupyter) && \\
 $(install_opam_packages) && \\
     \\
-    sudo apt-get purge -y aspcud rsync gfortran python3-dev && \\
+    sudo apt-get purge -y m4 rsync gcc gfortran aspcud pkg-config && \\
     sudo apt-get autoremove -y && \\
     sudo apt-get autoclean
 EOF
@@ -209,12 +214,13 @@ fi
 
 cat <<'EOF' >> dockerfiles/$TAG/Dockerfile
 
-COPY entrypoint.sh /
-COPY .ocamlinit    /home/opam/.ocamlinit
-COPY notebook.json /home/opam/.jupyter/nbconfig/notebook.json
-
 VOLUME /notebooks
+VOLUME /home/opam/.jupyter
 WORKDIR /notebooks
+
+ADD entrypoint.sh /
+ADD .ocamlinit    /home/opam/.ocamlinit
+ADD notebook.json /home/opam/.jupyter/nbconfig/notebook.json
 
 EXPOSE 8888
 
@@ -222,39 +228,6 @@ ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "jupyter", "notebook", "--no-browser", "--ip=*" ]
 EOF
 
-## .ocamlinit
-cat <<'EOF' > dockerfiles/$TAG/.ocamlinit
-let () =
-  try Topdirs.dir_directory (Sys.getenv "OCAML_TOPLEVEL_PATH")
-  with Not_found -> ()
-;;
-
-#use "topfind" ;;
-Topfind.log := ignore ;; (* prevent noisy logs *)
-EOF
-
-## notebook.json
-cat <<'EOF' > dockerfiles/$TAG/notebook.json
-{
-  "Cell": {
-    "load_extensions": {
-      "contrib_nbextensions_help_item/main": true,
-      "nbextensions_configurator/config_menu/main": true
-    },
-    "cm_config": {
-      "indentUnit": 2,
-      "lineNumbers": true,
-      "autoCloseBrackets": true
-    }
-  }
-}
-EOF
-
-# entrypoint.sh
-cat <<'EOF' > dockerfiles/$TAG/entrypoint.sh
-#!/bin/bash
-sudo chown -hR opam:opam /notebooks
-opam config exec -- "$@"
-EOF
-
-chmod +x dockerfiles/$TAG/entrypoint.sh
+cp .ocamlinit    dockerfiles/$TAG/
+cp notebook.json dockerfiles/$TAG/
+cp entrypoint.sh dockerfiles/$TAG/
