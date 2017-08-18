@@ -4,12 +4,11 @@ sudo chown -hR opam:opam /notebooks
 
 if ! [[ -f /notebooks/.merlin ]]; then
 	cat <<'EOF' >/notebooks/.merlin
-PKG jupyter
 PKG jupyter.notebook
-PKG jupyter.archimedes
 
 PKG core
 PKG batteries
+
 PKG lacaml
 PKG slap
 PKG gsl

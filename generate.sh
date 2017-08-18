@@ -220,7 +220,6 @@ WORKDIR /notebooks
 
 COPY entrypoint.sh /
 COPY .ocamlinit    /home/opam/.ocamlinit
-COPY .merlin       /home/opam/.merlin
 COPY .jupyter      /home/opam/.jupyter
 
 EXPOSE 8888
@@ -231,5 +230,4 @@ EOF
 
 cp    entrypoint.sh dockerfiles/$TAG
 cp    .ocamlinit    dockerfiles/$TAG
-cp    .merlin       dockerfiles/$TAG
 cp -r .jupyter      dockerfiles/$TAG
