@@ -75,7 +75,7 @@ The OCaml standard library is too small in practical use. The following packages
 - **[GSL](http://mmottl.github.io/gsl-ocaml)** ([GitHub](https://github.com/mmottl/gsl-ocaml), [API](http://mmottl.github.io/gsl-ocaml/api/)) &mdash; A binding to [GNU Scientific Library (GSL)](http://www.gnu.org/software/gsl/), a rich numerical analysis library containing interface to BLAS. This library contains eigenproblem solvers, least square fitting, pseudo-random number generators (such as Mersenne Twister), FFT (fast Fourier transform), Monte-Carlo simulation, etc.
     - [notebooks/gaussian_random_walk.ipynb](notebooks/gaussian_random_walk.ipynb)
     - [notebooks/random_dataset_generation.ipynb](notebooks/random_dataset_generation.ipynb)
-- **Owl** ([GitHub](https://github.com/ryanrhymes/owl)) &mdash; a general-purpose numerical library: dense and sparse matrix, linear algebra, regressions, maths and stats functions.
+- **Owl** ([GitHub](https://github.com/ryanrhymes/owl), [API](http://www.cl.cam.ac.uk/~lw525/owl/)) &mdash; a general-purpose numerical library: dense and sparse matrix, linear algebra, regressions, maths and stats functions.
     - [notebooks/owl.ipynb](notebooks/owl.ipynb)
 - **FFTW3** ([GitHub](https://github.com/Chris00/fftw-ocaml)) &mdash; A binding to [FFTW3](http://fftw.org/), a major fast Fourier transform library.
     - [notebooks/fftw3_example.ipynb](notebooks/fftw3_example.ipynb)
@@ -85,7 +85,7 @@ The OCaml standard library is too small in practical use. The following packages
 - **[L-BFGS](https://github.com/Chris00/L-BFGS-ocaml)** ([API](http://lbfgs.forge.ocamlcore.org/API.docdir/Lbfgs.html)) &mdash; A binding to [L-BFGS-B](http://users.iems.northwestern.edu/~nocedal/lbfgsb.html), a quasi-Newton library for bound-constrained optimization.
 - **Ocephes** ([GitHub](https://github.com/rleonid/ocephes), [API](https://rleonid.github.io/ocephes/)) &mdash; A binding to [Ocephes](http://www.netlib.org/cephes/), a library of special math functions like Binominal, Gaussian, Gamma distributions, incomplete Beta integral.
 - **[Oml](http://www.hammerlab.org/2015/08/11/introducing-oml-a-small-ocaml-library-for-numerical-computing/)** ([GitHub](https://github.com/hammerlab/oml), [API](http://www.hammerlab.org/oml/index.html)) &mdash; A small library for numerical computing on OCaml.
-- **[GPR](https://mmottl.github.io/gpr/)** ([GitHub](https://github.com/mmottl/gpr), [API](http://mmottl.github.io/gpr/api/). [PDF](http://mmottl.github.io/gpr/gpr_manual.pdf)) &mdash; Efficient and scalable Gaussian Process Regression in OCaml.
+- **[GPR](https://mmottl.github.io/gpr/)** ([GitHub](https://github.com/mmottl/gpr), [API](http://mmottl.github.io/gpr/api/), [PDF](http://mmottl.github.io/gpr/gpr_manual.pdf)) &mdash; Efficient and scalable Gaussian Process Regression in OCaml.
 
 ### Visualization
 
