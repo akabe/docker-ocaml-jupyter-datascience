@@ -64,7 +64,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       cohttp-lwt-unix \
       cohttp-top \
       'cairo2>=0.5' archimedes \
-      'merlin>=3.0.0' 'cppo=1.5.0' 'stdint<0.4.0' 'jupyter=0.1.0' \
+      'merlin>=3.0.0' 'cppo>=1.6.0' 'stdint<0.4.0' 'jupyter>=1.0.0' \
       lacaml \
       slap \
       lbfgs \
