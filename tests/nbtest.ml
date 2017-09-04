@@ -74,7 +74,7 @@ let ipynb_of_ml_file fname =
           {
             display_name = "OCaml";
             language = "OCaml";
-            name = "ocaml-jupyter-" ^ Sys.ocaml_version;
+            name = "ocaml-jupyter";
           };
         language_info =
           {
