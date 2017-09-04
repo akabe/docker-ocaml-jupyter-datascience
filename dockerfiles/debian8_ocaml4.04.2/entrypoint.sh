@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo chown -hR opam:opam /home/opam/.jupyter
 sudo chown -hR opam:opam /notebooks
 
 if ! [[ -f /notebooks/.merlin ]]; then
