@@ -32,6 +32,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       plplot-devel \
       openssh-clients \
       blas-devel \
+      openblas-devel \
       lapack-devel \
       gsl-devel \
       fftw-devel \
@@ -61,7 +62,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       cohttp-lwt-unix \
       cohttp-top \
       'cairo2>=0.5' archimedes \
-      'merlin>=3.0.0' 'cppo>=1.6.0' 'stdint<0.4.0' 'jupyter>=1.0.0' \
+      'merlin>=3.0.0' 'jupyter>=1.0.0' \
       lacaml \
       slap \
       lbfgs \
