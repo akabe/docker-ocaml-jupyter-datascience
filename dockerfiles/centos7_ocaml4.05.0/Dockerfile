@@ -46,6 +46,8 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       ffmpeg \
     && \
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \
+    sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib64/libmariadb.so && \
+    sudo ln -sf /usr/lib64/libopenblas.so.0 /usr/lib/libopenblas.so && \
     \
     eval $(opam config env) && \
     \
