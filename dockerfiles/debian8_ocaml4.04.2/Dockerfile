@@ -33,9 +33,6 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libcairo2-dev \
       libplplot-dev plplot12-driver-cairo \
       libffi-dev \
-      libblas-dev \
-      liblapack-dev \
-      libopenblas-dev \
       libgsl0-dev \
       libfftw3-dev \
       libsvm-dev \
@@ -46,6 +43,12 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libgmp-dev \
       imagemagick \
       ffmpeg \
+    && \
+    sudo apt-get install -t jessie-backports -y \
+      libblas3 libblas-dev \
+      liblapack3 liblapack-dev \
+      libopenblas-dev \
+      liblapacke liblapacke-dev \
     && \
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \

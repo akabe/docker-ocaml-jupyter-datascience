@@ -32,8 +32,8 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       plplot-devel \
       openssh-clients \
       blas-devel \
-      openblas-devel \
       lapack-devel \
+      openblas-devel \
       gsl-devel \
       fftw-devel \
       libsvm-devel \
@@ -45,6 +45,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       ImageMagick \
       ffmpeg \
     && \
+    sudo mv /usr/include/openblas/* /usr/include/ && \
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmariadb.so && \
     sudo ln -sf /usr/lib64/libopenblas.so.0 /usr/lib/libopenblas.so && \
