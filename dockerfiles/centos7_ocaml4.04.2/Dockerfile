@@ -33,6 +33,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       openssh-clients \
       blas-devel \
       lapack-devel \
+      openblas-devel \
       gsl-devel \
       fftw-devel \
       libsvm-devel \
@@ -44,7 +45,10 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       ImageMagick \
       ffmpeg \
     && \
+    sudo mv /usr/include/openblas/* /usr/include/ && \
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \
+    sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmariadb.so && \
+    sudo ln -sf /usr/lib64/libopenblas.so.0 /usr/lib/libopenblas.so && \
     \
     eval $(opam config env) && \
     \
@@ -61,7 +65,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       cohttp-lwt-unix \
       cohttp-top \
       'cairo2>=0.5' archimedes \
-      'merlin>=3.0.0' 'cppo>=1.6.0' 'stdint<0.4.0' 'jupyter>=1.0.0' \
+      'merlin>=3.0.0' 'jupyter>=1.0.0' \
       lacaml \
       slap \
       lbfgs \

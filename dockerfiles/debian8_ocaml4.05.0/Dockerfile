@@ -33,8 +33,6 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libcairo2-dev \
       libplplot-dev plplot12-driver-cairo \
       libffi-dev \
-      libblas-dev \
-      liblapack-dev \
       libgsl0-dev \
       libfftw3-dev \
       libsvm-dev \
@@ -45,6 +43,12 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libgmp-dev \
       imagemagick \
       ffmpeg \
+    && \
+    sudo apt-get install -t jessie-backports -y \
+      libblas3 libblas-dev \
+      liblapack3 liblapack-dev \
+      libopenblas-dev \
+      liblapacke liblapacke-dev \
     && \
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \
@@ -64,7 +68,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       cohttp-lwt-unix \
       cohttp-top \
       'cairo2>=0.5' archimedes \
-      'merlin>=3.0.0' 'cppo>=1.6.0' 'stdint<0.4.0' 'jupyter>=1.0.0' \
+      'merlin>=3.0.0' 'jupyter>=1.0.0' \
       lacaml \
       slap \
       lbfgs \

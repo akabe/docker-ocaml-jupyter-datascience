@@ -26,7 +26,7 @@ function install_opam_packages() {
       cohttp-lwt-unix \
       cohttp-top \
       'cairo2>=0.5' archimedes \
-      'merlin>=3.0.0' 'cppo>=1.6.0' 'stdint<0.4.0' 'jupyter>=1.0.0' \
+      'merlin>=3.0.0' 'jupyter>=1.0.0' \
       lacaml \
       slap \
       lbfgs \
@@ -109,6 +109,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       openssh-clients \\
       blas-devel \\
       lapack-devel \\
+      openblas-devel \\
       gsl-devel \\
       fftw-devel \\
       libsvm-devel \\
@@ -120,7 +121,10 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       ImageMagick \\
       ffmpeg \\
     && \\
+    sudo mv /usr/include/openblas/* /usr/include/ && \\
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \\
+    sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmariadb.so && \\
+    sudo ln -sf /usr/lib64/libopenblas.so.0 /usr/lib/libopenblas.so && \\
     \\
 $(install_opam_packages) && \\
     \\
@@ -132,7 +136,7 @@ EOF
 
 function debian_scripts() {
 	cat <<'EOF' > dockerfiles/$TAG/ocaml-jupyter-datascience-extra.list
-deb http://ftp.uk.debian.org/debian jessie-backports main
+deb http://ftp.debian.org/debian jessie-backports main
 deb [arch=amd64,i386] http://mirrors.accretive-networks.net/mariadb/repo/10.2/debian jessie main
 EOF
 
@@ -162,8 +166,6 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libcairo2-dev \\
       libplplot-dev plplot12-driver-cairo \\
       libffi-dev \\
-      libblas-dev \\
-      liblapack-dev \\
       libgsl0-dev \\
       libfftw3-dev \\
       libsvm-dev \\
@@ -174,6 +176,12 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libgmp-dev \\
       imagemagick \\
       ffmpeg \\
+    && \\
+    sudo apt-get install -t jessie-backports -y \\
+      libblas3 libblas-dev \\
+      liblapack3 liblapack-dev \\
+      libopenblas-dev \\
+      liblapacke liblapacke-dev \\
     && \\
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \\
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \\
