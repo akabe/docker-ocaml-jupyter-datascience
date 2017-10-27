@@ -81,7 +81,9 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       mysql \
       'mariadb>=0.8.1' \
       postgresql \
-      sqlite3 && \
+      sqlite3 \
+      lambdasoup \
+      camomile && \
     \
     : install libsvm && \
     curl -L https://bitbucket.org/ogu/libsvm-ocaml/downloads/libsvm-ocaml-0.9.3.tar.gz \

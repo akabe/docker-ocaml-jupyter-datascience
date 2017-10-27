@@ -106,6 +106,11 @@ The OCaml standard library is too small in practical use. The following packages
     - [notebooks/cohttp_lwt_DuckDuckGoAPI.ipynb](notebooks/cohttp_lwt_DuckDuckGoAPI.ipynb)
     - [notebooks/cohttp_async_DuckDuckGoAPI.ipynb](notebooks/cohttp_async_DuckDuckGoAPI.ipynb)
 
+### Preprocessing
+
+- **[Camomile](http://camomile.sourceforge.net/)** ([GitHub](https://github.com/yoriyuki/Camomile), [API](http://camomile.sourceforge.net/dochtml/index.html)) &mdash; Camomile is a library for character encoding conversion and unicode utilities.
+- **LambdaSoup** ([GitHub](https://github.com/aantron/lambda-soup), [API](http://aantron.github.io/lambda-soup/)) &mdash; Lambda Soup is a functional HTML scraping and manipulation library for OCaml aimed at being easy to use.
+
 ### Concurrent programming
 
 - **[Jane Street Async](https://janestreet.github.io/)** ([GitHub](https://github.com/janestreet/async), [API](https://ocaml.janestreet.com/ocaml-core/v0.9/doc/async/Async/index.html)) &mdash; Jane Street Capital's library for concurrent programming.

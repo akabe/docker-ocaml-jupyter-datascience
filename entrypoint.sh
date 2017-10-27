@@ -40,6 +40,8 @@ PKG postgresql
 PKG sqlite3
 PKG cohttp-lwt-unix
 PKG cohttp-async
+PKG lambdasoup
+PKG camomile
 EOF
 fi
 

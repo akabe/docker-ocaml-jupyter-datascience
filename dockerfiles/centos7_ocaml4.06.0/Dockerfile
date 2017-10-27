@@ -78,7 +78,9 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       mysql \
       'mariadb>=0.8.1' \
       postgresql \
-      sqlite3 && \
+      sqlite3 \
+      lambdasoup \
+      camomile && \
     \
     : install libsvm && \
     curl -L https://bitbucket.org/ogu/libsvm-ocaml/downloads/libsvm-ocaml-0.9.3.tar.gz \
