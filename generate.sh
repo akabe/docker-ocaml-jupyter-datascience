@@ -97,6 +97,7 @@ $(install_jupyter) && \\
 RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-solver-proxy/8f162de1fe89b2e243d89961f376c80fde6de76d/aspcud.docker' && \\
     sudo chmod 755 /usr/bin/aspcud && \\
     sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm && \\
+    sudo rpm -ivh http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm && \\
     sudo yum install -y --enablerepo=epel,nux-dextop \\
       which \\
       m4 \\
@@ -122,6 +123,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       openssl-devel \\
       ImageMagick \\
       ffmpeg \\
+      phantomjs \\
     && \\
     sudo mv /usr/include/openblas/* /usr/include/ && \\
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \\
@@ -184,9 +186,11 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       liblapack3 liblapack-dev \\
       libopenblas-dev \\
       liblapacke liblapacke-dev \\
+      phantomjs \\
     && \\
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \\
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \\
+    sudo ln -sf /etc/fonts /usr/lib/x86_64-linux-gnu/fonts && \\
     \\
 $(install_opam_packages) && \\
     \\
@@ -208,6 +212,8 @@ ENV PATH               \$PATH:/home/opam/.local/bin
 ENV TENSORFLOW_VERSION 1.1.0
 ENV LD_LIBRARY_PATH    /usr/lib:\$LD_LIBRARY_PATH
 ENV LIBRARY_PATH       /usr/lib:\$LIBRARY_PATH
+# For phantomjs:
+ENV QT_QPA_PLATFORM    offscreen
 
 EOF
 

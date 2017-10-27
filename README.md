@@ -120,6 +120,7 @@ The OCaml standard library is too small in practical use. The following packages
 
 - **[ImageMagick](https://www.imagemagick.org/script/index.php)** &mdash; ImageMagick is a program to create, edit, compose, or convert bitmap images. This supports many formats, e.g., PNG, JPEG, GIF, TIFF, PDF, etc.
 - **[FFmpeg](https://ffmpeg.org/)** &mdash; FFmpeg is a powerful tool for converting audio and video files.
+- **[PhantomJS](http://phantomjs.org/)** &mdash; PhantomJS is a headless WebKit scriptable with a JavaScript API. It has fast and native support for various web standards: DOM handling, CSS selector, JSON, Canvas, and SVG.
 
 ## Examples
 

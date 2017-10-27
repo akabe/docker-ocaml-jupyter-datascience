@@ -29,6 +29,8 @@ for cmd in convert ffmpeg ssh ; do
 	fi
 done
 
+phantomjs tests/webpage.js
+
 ##
 ## Test opam packages on Jupyter
 ##
