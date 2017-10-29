@@ -4,6 +4,8 @@ ENV PATH               $PATH:/home/opam/.local/bin
 ENV TENSORFLOW_VERSION 1.1.0
 ENV LD_LIBRARY_PATH    /usr/lib:$LD_LIBRARY_PATH
 ENV LIBRARY_PATH       /usr/lib:$LIBRARY_PATH
+# For phantomjs:
+ENV QT_QPA_PLATFORM    offscreen
 
 ADD ocaml-jupyter-datascience-extra.list /etc/apt/sources.list.d/ocaml-jupyter-datascience-extra.list
 
@@ -49,9 +51,11 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       liblapack3 liblapack-dev \
       libopenblas-dev \
       liblapacke liblapacke-dev \
+      phantomjs \
     && \
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \
+    sudo ln -sf /etc/fonts /usr/lib/x86_64-linux-gnu/fonts && \
     \
     eval $(opam config env) && \
     \
@@ -81,7 +85,9 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       mysql \
       'mariadb>=0.8.1' \
       postgresql \
-      sqlite3 && \
+      sqlite3 \
+      lambdasoup \
+      camomile && \
     \
     : install libsvm && \
     curl -L https://bitbucket.org/ogu/libsvm-ocaml/downloads/libsvm-ocaml-0.9.3.tar.gz \
