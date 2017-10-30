@@ -23,4 +23,4 @@ matrix:
     - env: TAG=debian8_ocaml4.05.0 OS=debian:8 ALIAS='debian_ocaml4.05.0 4.05.0'
 
 script:
-  - bash -eu travis-ci.sh
+  - bash -eu .travis-ci.sh

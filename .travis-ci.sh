@@ -73,13 +73,13 @@ check_unpushed_changes
 git_diff_pullreq > pullreq.diff
 cat pullreq.diff
 
-if grep "^+++ b/dockerfiles/$TAG/Dockerfile" pullreq.diff >/dev/null; then
-    build_image
-    test_image
-elif [[ "$TRAVIS_PULL_REQUEST" == false ]] && [[ "$TRAVIS_BRANCH" == master ]]; then
+if [[ "$TRAVIS_BRANCH" == master ]]; then
     build_image
     test_image
     deploy_image # Build and deploy images on the master branch.
+elif grep "^+++ b/dockerfiles/$TAG/Dockerfile" pullreq.diff >/dev/null; then
+    build_image
+    test_image
 else
     green_echo "[ OK ] $TAG: Dockerfile is not changed."
 fi
