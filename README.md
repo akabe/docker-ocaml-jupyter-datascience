@@ -106,16 +106,20 @@ The OCaml standard library is too small in practical use. The following packages
     - [notebooks/cohttp_lwt_DuckDuckGoAPI.ipynb](notebooks/cohttp_lwt_DuckDuckGoAPI.ipynb)
     - [notebooks/cohttp_async_DuckDuckGoAPI.ipynb](notebooks/cohttp_async_DuckDuckGoAPI.ipynb)
 
-### Preprocessing
+### Concurrent programming
+
+- **[Jane Street Async](https://janestreet.github.io/)** ([GitHub](https://github.com/janestreet/async), [API](https://ocaml.janestreet.com/ocaml-core/v0.9/doc/async/Async/index.html)) &mdash; Jane Street Capital's library for concurrent programming.
+- **[Lwt](https://ocsigen.org/lwt/manual/)** ([GitHub](https://github.com/ocsigen/lwt), [API](https://ocsigen.org/lwt/3.0.0/api/Lwt)) &mdash; A library of cooperative light-weight threads.
+
+### Other packages
 
 - **Re** ([GitHub](https://github.com/ocaml/ocaml-re)) &mdash; A fast and easy-to-use regular expression library for OCaml. This library supports Glob, POSIX, Perl, PCRE, and [OCaml-Str](https://caml.inria.fr/pub/docs/manual-ocaml/libref/Str.html)-style syntaxes.
 - **[Camomile](http://camomile.sourceforge.net/)** ([GitHub](https://github.com/yoriyuki/Camomile), [API](http://camomile.sourceforge.net/dochtml/index.html)) &mdash; Camomile is a library for character encoding conversion and unicode utilities.
 - **LambdaSoup** ([GitHub](https://github.com/aantron/lambda-soup), [API](http://aantron.github.io/lambda-soup/)) &mdash; Lambda Soup is a functional HTML scraping and manipulation library for OCaml aimed at being easy to use.
 
-### Concurrent programming
-
-- **[Jane Street Async](https://janestreet.github.io/)** ([GitHub](https://github.com/janestreet/async), [API](https://ocaml.janestreet.com/ocaml-core/v0.9/doc/async/Async/index.html)) &mdash; Jane Street Capital's library for concurrent programming.
-- **[Lwt](https://ocsigen.org/lwt/manual/)** ([GitHub](https://github.com/ocsigen/lwt), [API](https://ocsigen.org/lwt/3.0.0/api/Lwt)) &mdash; A library of cooperative light-weight threads.
+- **[ppx_sexp_conv](https://github.com/janestreet/ppx_sexp_conv)** &mdash; Automatic generation of converters between OCaml datatypes and S-expressions.
+- **[ppx_deriving_yojson](https://github.com/whitequark/ppx_deriving_yojson)** &mdash; Automatic generation of converters between OCaml datatypes and JSONs.
+- **[ppx_regexp](https://github.com/paurkedal/ppx_regexp)** &mdash; Pattern matching by PCRE-style regular expressions.
 
 ### CUI tools
 
