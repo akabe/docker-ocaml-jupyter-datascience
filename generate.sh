@@ -41,7 +41,10 @@ function install_opam_packages() {
       postgresql \
       sqlite3 \
       lambdasoup \
-      camomile && \
+      camomile \
+      ppx_sexp_conv \
+      ppx_deriving_yojson \
+      ppx_regexp && \
     \
     : install libsvm && \
     curl -L https://bitbucket.org/ogu/libsvm-ocaml/downloads/libsvm-ocaml-0.9.3.tar.gz \
