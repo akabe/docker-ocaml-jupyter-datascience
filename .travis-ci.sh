@@ -73,7 +73,7 @@ check_unpushed_changes
 git_diff_pullreq > pullreq.diff
 cat pullreq.diff
 
-if [[ "$TRAVIS_BRANCH" == master ]]; then
+if [[ "$TRAVIS_PULL_REQUEST" == false ]] && [[ "$TRAVIS_BRANCH" == master ]]; then
     build_image
     test_image
     deploy_image # Build and deploy images on the master branch.
