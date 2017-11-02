@@ -41,6 +41,7 @@ function install_opam_packages() {
       postgresql \
       sqlite3 \
       lambdasoup \
+      csv csv-lwt \
       camomile \
       ppx_sexp_conv \
       ppx_deriving_yojson \
