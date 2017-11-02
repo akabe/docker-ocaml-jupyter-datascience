@@ -84,6 +84,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       postgresql \
       sqlite3 \
       lambdasoup \
+      csv csv-lwt \
       camomile \
       ppx_sexp_conv \
       ppx_deriving_yojson \

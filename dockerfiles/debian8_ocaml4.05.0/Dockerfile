@@ -87,6 +87,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       postgresql \
       sqlite3 \
       lambdasoup \
+      csv csv-lwt \
       camomile \
       ppx_sexp_conv \
       ppx_deriving_yojson \

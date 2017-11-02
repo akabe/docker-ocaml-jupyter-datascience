@@ -116,7 +116,7 @@ The OCaml standard library is too small in practical use. The following packages
 - **Re** ([GitHub](https://github.com/ocaml/ocaml-re)) &mdash; A fast and easy-to-use regular expression library for OCaml. This library supports Glob, POSIX, Perl, PCRE, and [OCaml-Str](https://caml.inria.fr/pub/docs/manual-ocaml/libref/Str.html)-style syntaxes.
 - **[Camomile](http://camomile.sourceforge.net/)** ([GitHub](https://github.com/yoriyuki/Camomile), [API](http://camomile.sourceforge.net/dochtml/index.html)) &mdash; Camomile is a library for character encoding conversion and unicode utilities.
 - **LambdaSoup** ([GitHub](https://github.com/aantron/lambda-soup), [API](http://aantron.github.io/lambda-soup/)) &mdash; Lambda Soup is a functional HTML scraping and manipulation library for OCaml aimed at being easy to use.
-
+- **OCaml CSV** ([GitHub](https://github.com/Chris00/ocaml-csv), [API](https://math.umons.ac.be/anum/software/csv/)) &mdash; A library to read and write comma-separated-values (CSV) format files.
 - **[ppx_sexp_conv](https://github.com/janestreet/ppx_sexp_conv)** &mdash; Automatic generation of converters between OCaml datatypes and S-expressions.
 - **[ppx_deriving_yojson](https://github.com/whitequark/ppx_deriving_yojson)** &mdash; Automatic generation of converters between OCaml datatypes and JSONs.
 - **[ppx_regexp](https://github.com/paurkedal/ppx_regexp)** &mdash; Pattern matching by PCRE-style regular expressions.
