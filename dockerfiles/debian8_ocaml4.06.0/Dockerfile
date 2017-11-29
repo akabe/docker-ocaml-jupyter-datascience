@@ -69,7 +69,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       lwt_ssl \
       'cstruct>=3.1.1' 'ppx_cstruct>=3.1.1' 'tls>=0.8.0' \
       cohttp-async \
-      cohttp-lwt-unix \
+      'cohttp-lwt-unix>=1.0.0' \
       cohttp-top \
       'cairo2>=0.5' archimedes \
       'merlin>=3.0.0' 'jupyter>=1.0.0' \
@@ -90,7 +90,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       csv csv-lwt \
       camomile \
       ppx_sexp_conv \
-      ppx_deriving_yojson \
+      'ppx_deriving_yojson>=3.1' \
       ppx_regexp && \
     \
     : install libsvm && \
