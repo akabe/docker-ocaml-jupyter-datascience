@@ -1,4 +1,4 @@
-FROM akabe/ocaml:debian8_ocaml4.04.2
+FROM akabe/ocaml:debian8_ocaml4.07.0
 
 ENV PATH               $PATH:/home/opam/.local/bin
 ENV TENSORFLOW_VERSION 1.1.0

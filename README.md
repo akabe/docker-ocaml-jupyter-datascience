@@ -44,18 +44,21 @@ The default images are built on Debian 8:
 
 | Tag | OCaml | OPAM | Command | Dockerfile |
 | ------------ | ----- | ---- | ------- | ---------- |
-| **latest** | 4.04.1 | 1.2.2 | `docker pull akabe/ocaml-jupyter-datascience` | [Dockerfile](dockerfiles/debian8_ocaml4.04.1/Dockerfile) |
+| **latest** | 4.05.0 | 1.2.2 | `docker pull akabe/ocaml-jupyter-datascience` | [Dockerfile](dockerfiles/debian8_ocaml4.05.0/Dockerfile) |
+| **4.04.1** | 4.04.1 | 1.2.2 | `docker pull akabe/ocaml-jupyter-datascience:4.04.1` | [Dockerfile](dockerfiles/debian8_ocaml4.04.1/Dockerfile) |
 
 ### CentOS
 
 | Distribution | OCaml | OPAM | Command | Dockerfile |
 | ------------ | ----- | ---- | ------- | ---------- |
+| CentOS 7 | 4.05.0 | 1.2.2 | `docker pull akabe/ocaml-jupyter-datascience:centos7_ocaml4.05.0` | [Dockerfile](dockerfiles/centos7_ocaml4.05.0/Dockerfile) |
 | CentOS 7 | 4.04.1 | 1.2.2 | `docker pull akabe/ocaml-jupyter-datascience:centos7_ocaml4.04.1` | [Dockerfile](dockerfiles/centos7_ocaml4.04.1/Dockerfile) |
 
 ### Debian
 
 | Distribution | OCaml | OPAM | Command | Dockerfile |
 | ------------ | ----- | ---- | ------- | ---------- |
+| Debian 8 | 4.05.0 | 1.2.2 | `docker pull akabe/ocaml-jupyter-datascience:debian8_ocaml4.05.0` | [Dockerfile](dockerfiles/debian8_ocaml4.05.0/Dockerfile) |
 | Debian 8 | 4.04.1 | 1.2.2 | `docker pull akabe/ocaml-jupyter-datascience:debian8_ocaml4.04.1` | [Dockerfile](dockerfiles/debian8_ocaml4.04.1/Dockerfile) |
 
 ## Pre-installed packages

@@ -44,7 +44,7 @@ function install_opam_packages() {
       csv csv-lwt \
       camomile \
       ppx_sexp_conv \
-      ppx_deriving_yojson \
+      'ppx_deriving_yojson>=3.1' \
       ppx_regexp && \
     \
     : install libsvm && \

@@ -1,4 +1,4 @@
-FROM akabe/ocaml:debian8_ocaml4.04.2
+FROM akabe/ocaml:centos7_ocaml4.07.0
 
 ENV PATH               $PATH:/home/opam/.local/bin
 ENV TENSORFLOW_VERSION 1.1.0
@@ -7,55 +7,52 @@ ENV LIBRARY_PATH       /usr/lib:$LIBRARY_PATH
 # For phantomjs:
 ENV QT_QPA_PLATFORM    offscreen
 
-ADD ocaml-jupyter-datascience-extra.list /etc/apt/sources.list.d/ocaml-jupyter-datascience-extra.list
+ADD MariaDB.repo /etc/yum.repos.d/MariaDB.repo
 
-RUN sudo apt-get install -y python3-dev python3-pip && \
+RUN sudo yum install -y epel-release && \
+    sudo yum install -y python34-devel python34-pip && \
     sudo pip3 install --upgrade pip && \
     pip3 install --user --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
     jupyter contrib nbextension install --user && \
     mkdir -p /home/opam/.jupyter && \
-    sudo apt-get purge -y python3-dev && \
-    sudo apt-get autoremove -y && \
-    sudo apt-get autoclean
+    sudo yum remove -y python34-devel && \
+    sudo yum clean all
 
-RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db && \
-    sudo apt-get update && \
-    sudo apt-get upgrade -y && \
-    sudo apt-get install -y \
+RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-solver-proxy/8f162de1fe89b2e243d89961f376c80fde6de76d/aspcud.docker' && \
+    sudo chmod 755 /usr/bin/aspcud && \
+    sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm && \
+    sudo rpm -ivh http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm && \
+    sudo yum install -y --enablerepo=epel,nux-dextop \
+      which \
       m4 \
       rsync \
       gcc \
-      gfortran \
-      aspcud \
-      pkg-config \
-      ssh \
-      libzmq3-dev \
-      libffi-dev \
-      libgmp-dev \
-      libcairo2-dev \
-      libplplot-dev plplot12-driver-cairo \
-      libffi-dev \
-      libgsl0-dev \
-      libfftw3-dev \
-      libsvm-dev \
-      libcairo2-dev \
-      libmariadb-dev \
-      libpq-dev \
-      libsqlite3-dev \
-      libgmp-dev \
-      imagemagick \
+      gcc-c++ \
+      zeromq-devel \
+      libffi-devel \
+      gmp-devel \
+      cairo-devel \
+      plplot-devel \
+      openssh-clients \
+      blas-devel \
+      lapack-devel \
+      openblas-devel \
+      gsl-devel \
+      fftw-devel \
+      libsvm-devel \
+      MariaDB-devel \
+      postgresql-devel \
+      sqlite-devel \
+      gmp-devel \
+      openssl-devel \
+      ImageMagick \
       ffmpeg \
-    && \
-    sudo apt-get install -t jessie-backports -y \
-      libblas3 libblas-dev \
-      liblapack3 liblapack-dev \
-      libopenblas-dev \
-      liblapacke liblapacke-dev \
       phantomjs \
     && \
-    sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \
-    sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \
-    sudo ln -sf /etc/fonts /usr/lib/x86_64-linux-gnu/fonts && \
+    sudo mv /usr/include/openblas/* /usr/include/ && \
+    sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \
+    sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmariadb.so && \
+    sudo ln -sf /usr/lib64/libopenblas.so.0 /usr/lib/libopenblas.so && \
     \
     eval $(opam config env) && \
     \
@@ -124,9 +121,9 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
            $HOME/.opam/$OCAML_VERSION/man \
            $HOME/.opam/$OCAML_VERSION/build && \
     \
-    sudo apt-get purge -y m4 rsync gcc gfortran aspcud pkg-config && \
-    sudo apt-get autoremove -y && \
-    sudo apt-get autoclean
+    sudo yum remove -y which m4 rsync gcc gcc-c++ gcc-gfortran && \
+    sudo yum clean all && \
+    sudo rm -f /usr/bin/aspcud
 
 VOLUME /notebooks
 VOLUME /home/opam/.jupyter

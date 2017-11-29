@@ -1,0 +1,13 @@
+{
+  "Cell": {
+    "load_extensions": {
+      "contrib_nbextensions_help_item/main": true,
+      "nbextensions_configurator/config_menu/main": true
+    },
+    "cm_config": {
+      "indentUnit": 2,
+      "lineNumbers": true,
+      "autoCloseBrackets": true
+    }
+  }
+}

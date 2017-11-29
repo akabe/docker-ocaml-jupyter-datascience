@@ -87,7 +87,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       csv csv-lwt \
       camomile \
       ppx_sexp_conv \
-      ppx_deriving_yojson \
+      'ppx_deriving_yojson>=3.1' \
       ppx_regexp && \
     \
     : install libsvm && \

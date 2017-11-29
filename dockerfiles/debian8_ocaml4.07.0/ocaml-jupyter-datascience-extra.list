@@ -1,0 +1,2 @@
+deb http://ftp.debian.org/debian jessie-backports main
+deb [arch=amd64,i386] http://mirrors.accretive-networks.net/mariadb/repo/10.2/debian jessie main

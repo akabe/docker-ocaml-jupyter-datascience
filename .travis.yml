@@ -9,18 +9,20 @@ services:
   - docker
 
 env:
+  - TAG=centos7_ocaml4.07.0 OS=centos:7 ALIAS='centos_ocaml4.07.0'
   - TAG=centos7_ocaml4.06.0 OS=centos:7 ALIAS='centos_ocaml4.06.0'
   - TAG=centos7_ocaml4.05.0 OS=centos:7 ALIAS='centos_ocaml4.05.0'
   - TAG=centos7_ocaml4.04.2 OS=centos:7 ALIAS='centos_ocaml4.04.2'
+  - TAG=debian8_ocaml4.07.0 OS=debian:8 ALIAS='debian_ocaml4.07.0 4.07.0'
   - TAG=debian8_ocaml4.06.0 OS=debian:8 ALIAS='debian_ocaml4.06.0 4.06.0'
-  - TAG=debian8_ocaml4.05.0 OS=debian:8 ALIAS='debian_ocaml4.05.0 4.05.0'
-  - TAG=debian8_ocaml4.04.2 OS=debian:8 ALIAS='debian_ocaml4.04.2 4.04.2 latest'
+  - TAG=debian8_ocaml4.05.0 OS=debian:8 ALIAS='debian_ocaml4.05.0 4.05.0 latest'
+  - TAG=debian8_ocaml4.04.2 OS=debian:8 ALIAS='debian_ocaml4.04.2 4.04.2'
 matrix:
   allow_failures:
+    - env: TAG=centos7_ocaml4.07.0 OS=centos:7 ALIAS='centos_ocaml4.07.0'
     - env: TAG=centos7_ocaml4.06.0 OS=centos:7 ALIAS='centos_ocaml4.06.0'
-    - env: TAG=centos7_ocaml4.05.0 OS=centos:7 ALIAS='centos_ocaml4.05.0'
+    - env: TAG=debian8_ocaml4.07.0 OS=debian:8 ALIAS='debian_ocaml4.07.0 4.07.0'
     - env: TAG=debian8_ocaml4.06.0 OS=debian:8 ALIAS='debian_ocaml4.06.0 4.06.0'
-    - env: TAG=debian8_ocaml4.05.0 OS=debian:8 ALIAS='debian_ocaml4.05.0 4.05.0'
 
 script:
   - bash -eu .travis-ci.sh
