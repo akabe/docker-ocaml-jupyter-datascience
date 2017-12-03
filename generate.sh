@@ -25,8 +25,7 @@ function install_opam_packages() {
       cohttp-async \
       'cohttp-lwt-unix>=1.0.0' \
       cohttp-top \
-      'cairo2>=0.5' archimedes \
-      'merlin>=3.0.0' 'jupyter>=1.0.0' \
+      'merlin>=3.0.0' jupyter jupyter-archimedes \
       lacaml \
       slap \
       lbfgs \
@@ -46,6 +45,9 @@ function install_opam_packages() {
       ppx_sexp_conv \
       'ppx_deriving_yojson>=3.1' \
       ppx_regexp && \
+    \
+    : install kernel && \
+    jupyter kernelspec install --user --name ocaml-jupyter "$(opam config var share)/jupyter" && \
     \
     : install libsvm && \
     curl -L https://bitbucket.org/ogu/libsvm-ocaml/downloads/libsvm-ocaml-0.9.3.tar.gz \
