@@ -42,6 +42,7 @@ function install_opam_packages() {
       lambdasoup \
       csv csv-lwt \
       camomile \
+      mecab \
       ppx_sexp_conv \
       'ppx_deriving_yojson>=3.1' \
       ppx_regexp && \
@@ -82,6 +83,16 @@ function install_opam_packages() {
 EOF
 }
 
+function install_mecab_ipadic_neologd() {
+    cat <<'EOF'
+    curl -L https://github.com/neologd/mecab-ipadic-neologd/archive/master.tar.gz \
+         -o /tmp/mecab-ipadic-neologd-master.tar.gz && \
+    tar zxf /tmp/mecab-ipadic-neologd-master.tar.gz -C /tmp && \
+    ( cd /tmp/mecab-ipadic-neologd-master && ./bin/install-mecab-ipadic-neologd -n -y ) && \
+    rm -rf /tmp/mecab-ipadic-neologd-master.tar.gz /tmp/mecab-ipadic-neologd-master
+EOF
+}
+
 function centos7_scripts() {
 	cat <<'EOF' > dockerfiles/$TAG/MariaDB.repo
 [mariadb]
@@ -104,8 +115,12 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
     sudo chmod 755 /usr/bin/aspcud && \\
     sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm && \\
     sudo rpm -ivh http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm && \\
+    sudo rpm -ivh http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm && \\
     sudo yum install -y --enablerepo=epel,nux-dextop \\
       which \\
+      file \\
+      git \\
+      openssl \\
       m4 \\
       rsync \\
       gcc \\
@@ -126,6 +141,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       postgresql-devel \\
       sqlite-devel \\
       gmp-devel \\
+      mecab mecab-devel mecab-ipadic \\
       openssl-devel \\
       ImageMagick \\
       ffmpeg \\
@@ -136,9 +152,11 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmariadb.so && \\
     sudo ln -sf /usr/lib64/libopenblas.so.0 /usr/lib/libopenblas.so && \\
     \\
+$(install_mecab_ipadic_neologd) && \\
+    \\
 $(install_opam_packages) && \\
     \\
-    sudo yum remove -y which m4 rsync gcc gcc-c++ gcc-gfortran && \\
+    sudo yum remove -y which file git openssl m4 rsync gcc gcc-c++ gcc-gfortran && \\
     sudo yum clean all && \\
     sudo rm -f /usr/bin/aspcud
 EOF
@@ -153,7 +171,7 @@ EOF
     cat <<EOF
 ADD ocaml-jupyter-datascience-extra.list /etc/apt/sources.list.d/ocaml-jupyter-datascience-extra.list
 
-RUN sudo apt-get install -y python3-dev python3-pip && \\
+RUN sudo apt-get install -y python3 python3-dev python3-pip && \\
 $(install_jupyter) && \\
     sudo apt-get purge -y python3-dev && \\
     sudo apt-get autoremove -y && \\
@@ -164,6 +182,9 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
     sudo apt-get upgrade -y && \\
     sudo apt-get install -y \\
       m4 \\
+      git \\
+      xz-utils \\
+      openssl \\
       rsync \\
       gcc \\
       gfortran \\
@@ -184,6 +205,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libpq-dev \\
       libsqlite3-dev \\
       libgmp-dev \\
+      mecab libmecab-dev mecab-ipadic-utf8 \\
       imagemagick \\
       ffmpeg \\
     && \\
@@ -198,9 +220,11 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \\
     sudo ln -sf /etc/fonts /usr/lib/x86_64-linux-gnu/fonts && \\
     \\
+$(install_mecab_ipadic_neologd) && \\
+    \\
 $(install_opam_packages) && \\
     \\
-    sudo apt-get purge -y m4 rsync gcc gfortran aspcud pkg-config && \\
+    sudo apt-get purge -y m4 git xz-utils openssl rsync gcc gfortran aspcud pkg-config && \\
     sudo apt-get autoremove -y && \\
     sudo apt-get autoclean
 EOF

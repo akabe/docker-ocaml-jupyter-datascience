@@ -22,8 +22,12 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
     sudo chmod 755 /usr/bin/aspcud && \
     sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm && \
     sudo rpm -ivh http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm && \
+    sudo rpm -ivh http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm && \
     sudo yum install -y --enablerepo=epel,nux-dextop \
       which \
+      file \
+      git \
+      openssl \
       m4 \
       rsync \
       gcc \
@@ -44,6 +48,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       postgresql-devel \
       sqlite-devel \
       gmp-devel \
+      mecab mecab-devel mecab-ipadic \
       openssl-devel \
       ImageMagick \
       ffmpeg \
@@ -53,6 +58,12 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient.so && \
     sudo ln -sf /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmariadb.so && \
     sudo ln -sf /usr/lib64/libopenblas.so.0 /usr/lib/libopenblas.so && \
+    \
+    curl -L https://github.com/neologd/mecab-ipadic-neologd/archive/master.tar.gz \
+         -o /tmp/mecab-ipadic-neologd-master.tar.gz && \
+    tar zxf /tmp/mecab-ipadic-neologd-master.tar.gz -C /tmp && \
+    ( cd /tmp/mecab-ipadic-neologd-master && ./bin/install-mecab-ipadic-neologd -n -y ) && \
+    rm -rf /tmp/mecab-ipadic-neologd-master.tar.gz /tmp/mecab-ipadic-neologd-master && \
     \
     eval $(opam config env) && \
     \
@@ -85,6 +96,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
       lambdasoup \
       csv csv-lwt \
       camomile \
+      mecab \
       ppx_sexp_conv \
       'ppx_deriving_yojson>=3.1' \
       ppx_regexp && \
@@ -123,7 +135,7 @@ RUN sudo curl -o /usr/bin/aspcud 'https://raw.githubusercontent.com/avsm/opam-so
            $HOME/.opam/$OCAML_VERSION/man \
            $HOME/.opam/$OCAML_VERSION/build && \
     \
-    sudo yum remove -y which m4 rsync gcc gcc-c++ gcc-gfortran && \
+    sudo yum remove -y which file git openssl m4 rsync gcc gcc-c++ gcc-gfortran && \
     sudo yum clean all && \
     sudo rm -f /usr/bin/aspcud
 

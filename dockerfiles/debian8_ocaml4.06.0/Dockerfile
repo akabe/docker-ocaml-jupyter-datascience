@@ -9,7 +9,7 @@ ENV QT_QPA_PLATFORM    offscreen
 
 ADD ocaml-jupyter-datascience-extra.list /etc/apt/sources.list.d/ocaml-jupyter-datascience-extra.list
 
-RUN sudo apt-get install -y python3-dev python3-pip && \
+RUN sudo apt-get install -y python3 python3-dev python3-pip && \
     sudo pip3 install --upgrade pip && \
     pip3 install --user --no-cache-dir 'setuptools>=18.5' 'six>=1.9.0' jupyter jupyter_contrib_nbextensions && \
     jupyter contrib nbextension install --user && \
@@ -23,6 +23,9 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
     sudo apt-get upgrade -y && \
     sudo apt-get install -y \
       m4 \
+      git \
+      xz-utils \
+      openssl \
       rsync \
       gcc \
       gfortran \
@@ -43,6 +46,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       libpq-dev \
       libsqlite3-dev \
       libgmp-dev \
+      mecab libmecab-dev mecab-ipadic-utf8 \
       imagemagick \
       ffmpeg \
     && \
@@ -56,6 +60,12 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20 /usr/lib/libmysqlclient.so && \
     sudo ln -sf /usr/lib/x86_64-linux-gnu/libshp.so.2 /usr/lib/libshp.so && \
     sudo ln -sf /etc/fonts /usr/lib/x86_64-linux-gnu/fonts && \
+    \
+    curl -L https://github.com/neologd/mecab-ipadic-neologd/archive/master.tar.gz \
+         -o /tmp/mecab-ipadic-neologd-master.tar.gz && \
+    tar zxf /tmp/mecab-ipadic-neologd-master.tar.gz -C /tmp && \
+    ( cd /tmp/mecab-ipadic-neologd-master && ./bin/install-mecab-ipadic-neologd -n -y ) && \
+    rm -rf /tmp/mecab-ipadic-neologd-master.tar.gz /tmp/mecab-ipadic-neologd-master && \
     \
     eval $(opam config env) && \
     \
@@ -88,6 +98,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
       lambdasoup \
       csv csv-lwt \
       camomile \
+      mecab \
       ppx_sexp_conv \
       'ppx_deriving_yojson>=3.1' \
       ppx_regexp && \
@@ -126,7 +137,7 @@ RUN sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb9
            $HOME/.opam/$OCAML_VERSION/man \
            $HOME/.opam/$OCAML_VERSION/build && \
     \
-    sudo apt-get purge -y m4 rsync gcc gfortran aspcud pkg-config && \
+    sudo apt-get purge -y m4 git xz-utils openssl rsync gcc gfortran aspcud pkg-config && \
     sudo apt-get autoremove -y && \
     sudo apt-get autoclean
 
