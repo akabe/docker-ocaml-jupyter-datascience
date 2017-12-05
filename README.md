@@ -89,6 +89,9 @@ The OCaml standard library is too small in practical use. The following packages
 - **Ocephes** ([GitHub](https://github.com/rleonid/ocephes), [API](https://rleonid.github.io/ocephes/)) &mdash; A binding to [Ocephes](http://www.netlib.org/cephes/), a library of special math functions like Binominal, Gaussian, Gamma distributions, incomplete Beta integral.
 - **[Oml](http://www.hammerlab.org/2015/08/11/introducing-oml-a-small-ocaml-library-for-numerical-computing/)** ([GitHub](https://github.com/hammerlab/oml), [API](http://www.hammerlab.org/oml/index.html)) &mdash; A small library for numerical computing on OCaml.
 - **[GPR](https://mmottl.github.io/gpr/)** ([GitHub](https://github.com/mmottl/gpr), [API](http://mmottl.github.io/gpr/api/gpr/), [PDF](http://mmottl.github.io/gpr/gpr_manual.pdf)) &mdash; Efficient and scalable Gaussian Process Regression in OCaml.
+- **[MeCab](https://akabe.github.io/ocaml-mecab/)** ([GitHub](https://github.com/akabe/ocaml-mecab), [API](https://akabe.github.io/ocaml-mecab/api/)) &mdash; an OCaml binding of [MeCab](http://taku910.github.io/mecab/), a part-of-speech and morphological analyzer. The following dictionaries are available:
+    - ipadic at `/usr/lib/mecab/dic/mecab-ipadic`, and
+    - [mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd) at `/usr/lib/mecab/dic/mecab-ipadic-neologd`.
 
 ### Visualization
 

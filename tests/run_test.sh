@@ -45,6 +45,7 @@ packages=(
 	libsvm
 	ocephes
 	tensorflow
+    mecab
 	plplot
 	mysql
 	mariadb
